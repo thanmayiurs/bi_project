@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import ResourceCard from './ResourceCard';
 
-const ResourceList = () => {
-    const [resources, setResources] = useState([]);
+const ResourceList = ({ filterType }) => {
+  const [resources, setResources] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/api/resources')
-            .then((response) => response.json())
-            .then((data) => setResources(data))
-            .catch((error) => console.error('Error fetching resources:', error));
-    }, []);
+  useEffect(() => {
+    fetch('https://supreme-zebra-jj4976q7qrgjfv6g-5000.app.github.dev/api/resources')
+      .then(res => res.json())
+      .then(data => setResources(data));
+  }, []);
 
-    return (
-        <div>
-            <h2>Knowledge Base</h2>
-            <ul>
-                {resources.map((resource) => (
-                    <li key={resource._id}>
-                        <h3>{resource.title}</h3>
-                        <p>{resource.description}</p>
-                        <p><strong>Category:</strong> {resource.category}</p>
-                        <a href={resource.link} target="_blank" rel="noopener noreferrer">View Resource</a>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+  const filtered = filterType
+    ? resources.filter(r => r.category === filterType || r.type === filterType)
+    : resources;
+
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', marginTop: '2rem' }}>
+      {filtered.map(resource => (
+        <ResourceCard key={resource._id} resource={resource} />
+      ))}
+    </div>
+  );
 };
 
 export default ResourceList;

@@ -17,6 +17,10 @@ module.exports = {
           loader: 'babel-loader',
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   resolve: {
@@ -28,7 +32,9 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: './dist',
+    static: {
+      directory: path.join(__dirname, 'public'), // Serve static files from public
+    },
     historyApiFallback: true, // Ensures React routes work
     port: 3000,
     hot: false, // Disable Hot Module Replacement
