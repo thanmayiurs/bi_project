@@ -25,7 +25,7 @@ const UploadForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('https://supreme-zebra-jj4976q7qrgjfv6g-5000.app.github.dev/api/resources', {
+    fetch('https://bi-project-a6pc.onrender.com/api/resources', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),

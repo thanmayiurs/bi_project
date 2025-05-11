@@ -5,7 +5,7 @@ const ResourceList = ({ filterType }) => {
   const [resources, setResources] = useState([]);
 
   useEffect(() => {
-    fetch('https://supreme-zebra-jj4976q7qrgjfv6g-5000.app.github.dev/api/resources')
+    fetch('https://bi-project-a6pc.onrender.com/api/resources')
       .then(res => res.json())
       .then(data => setResources(data));
   }, []);
