@@ -1,0 +1,36 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/', // Ensures React routes work
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+    }),
+  ],
+  devServer: {
+    static: './dist',
+    historyApiFallback: true, // Ensures React routes work
+    port: 3000,
+    hot: false, // Disable Hot Module Replacement
+  },
+};
