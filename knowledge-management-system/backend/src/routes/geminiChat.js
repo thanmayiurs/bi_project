@@ -1,26 +1,25 @@
 const express = require('express');
-const axios = require('axios');
+const { GoogleGenAI } = require('@google/genai');
 const router = express.Router();
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // Set this in your .env
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
 router.post('/chat', async (req, res) => {
   const { message } = req.body;
+  if (!message) return res.status(400).json({ error: 'No message provided' });
+
   try {
-    const response = await axios.post(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent',
-      {
-        contents: [{ parts: [{ text: message }] }]
-      },
-      {
-        params: { key: GEMINI_API_KEY },
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
-    const aiReply = response.data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response.';
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.0-flash', // or 'gemini-2.0-flash' if you want the flash model
+      contents: [{ role: 'user', parts: [{ text: message }] }]
+    });
+    // The SDK returns a slightly different structure
+    const aiReply = response?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response.';
     res.json({ reply: aiReply });
   } catch (err) {
-    res.status(500).json({ error: 'Gemini API error', details: err.message });
+    console.error('Gemini SDK error:', err.message, err.response?.data);
+    res.status(500).json({ error: 'Gemini SDK error', details: err.message });
   }
 });
 
