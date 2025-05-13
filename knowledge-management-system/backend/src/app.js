@@ -25,6 +25,9 @@ app.use('/api/resources', require('./routes/resourceRoutes'));
 const linkPreviewRouter = require('./routes/linkPreview');
 app.use('/api/link', linkPreviewRouter);
 
+const geminiChatRouter = require('./routes/geminiChat');
+app.use('/api/gemini', geminiChatRouter);
+
 app.get('/', (req, res) => {
     res.send('Welcome to the AI and Machine Learning Research Wiki API!');
 });

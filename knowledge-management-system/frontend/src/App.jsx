@@ -8,6 +8,7 @@ import Datasets from './pages/Datasets';
 import Papers from './pages/Papers';
 import Tutorials from './pages/Tutorials';
 import Failures from './pages/Failures';
+import Chatbot from './components/Chatbot';
 import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
 
@@ -29,11 +30,14 @@ const AnimatedRoutes = () => {
   );
 };
 
-const App = () => (
-  <Router>
-    <Navbar />
-    <AnimatedRoutes />
-  </Router>
-);
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <AnimatedRoutes />
+      <Chatbot />
+    </Router>
+  );
+}
 
 export default App;
