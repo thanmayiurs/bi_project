@@ -15,7 +15,16 @@ const ResourceList = ({ filterType }) => {
     : resources;
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', marginTop: '2rem' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '2rem',
+        marginTop: '2rem',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
       {filtered.map(resource => (
         <ResourceCard key={resource._id} resource={resource} />
       ))}
