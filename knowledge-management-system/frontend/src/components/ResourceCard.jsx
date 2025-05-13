@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
+import LinkPreview from './LinkPreview';
 
 const typeLabels = {
   dataset: 'Dataset',
@@ -42,6 +43,7 @@ const ResourceCard = ({ resource }) => (
       <Typography variant="body2" sx={{ mb: 2 }}>
         {resource.description}
       </Typography>
+      {resource.link && <LinkPreview url={resource.link} />}
     </CardContent>
     <CardActions>
       <Button

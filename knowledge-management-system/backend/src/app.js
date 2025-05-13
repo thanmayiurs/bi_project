@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // Make sure this is present
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -21,6 +21,9 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Routes
 app.use('/api/resources', require('./routes/resourceRoutes'));
+
+const linkPreviewRouter = require('./routes/linkPreview');
+app.use('/api/link', linkPreviewRouter);
 
 app.get('/', (req, res) => {
     res.send('Welcome to the AI and Machine Learning Research Wiki API!');
